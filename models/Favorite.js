@@ -6,7 +6,7 @@ const favoriteSchema = new mongoose.Schema(
     // USERID
     userID: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'User',
+        ref: 'users',
         required: true,
     },
 

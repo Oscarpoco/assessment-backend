@@ -1,16 +1,22 @@
 import Favorite from "../models/Favorite.js";
 
-// CREATE newProduct
+// ADD TO FAVORITE
 export const AddToFavorite = async (req, res) => {
     try {
-        const newFavorite = await Recipe.create({
+        const newFavorite = await Favorite.create({
             ...req.body,      
-            userID: req.user.id   
+            userID: req.users.id   
         });
 
-        res.status(201).json(newFavorite);
+        res.status(201).json(
+        {
+            message: "Successfully added to favorite",
+            newFavorite
+        }
+        );
+
     } catch (error) {
-        res.status(500).json({ message: "Error creating product: " + error.message });
+        res.status(500).json({ message: "Error adding to favorite: " + error.message });
     }
 };
 // ENDS

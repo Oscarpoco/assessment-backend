@@ -3,14 +3,19 @@ import { protect } from "../middlewares/authMiddleware.js";
 import { body, validationResult } from 'express-validator';
 
 // CONTROLLERS
-import { AuthenticateUser } from "../controllers/createUser.js";
+import { RegisterUser } from "../controllers/createUser.js";
+import { LoginUser } from "../controllers/LoginUser.js";
+import { AddToFavorite } from "../controllers/addToFavorite.js";
+import { deleteFavoriteById } from "../controllers/deleteFromFavorite.js";
+import { getAllFavorites } from "../controllers/getFavorites.js";
+import { getFavoriteById } from "../controllers/getFavoriteById.js";
 
 const router = express.Router();
 
 // USER REGISTER AND LOGIN ROUTES
 
 router.post(
-  "/authentication",
+  "/register",
   [
     body('email')
       .isEmail()
@@ -29,27 +34,26 @@ router.post(
     }
     next();
   },
-  AuthenticateUser
+  
+  RegisterUser
 );
+
+router.post("/login", LoginUser);
 
 // USER REGISTER AND LOGIN ENDS
 
 
 // POST REQUEST ROUTE
-// router.post("/favorite",protect, createNewRecipe);
-// POST REQUEST ROUTE ENDS
+router.post("/addFavorite", protect, AddToFavorite);
 
 // GET REQUEST ROUTE 
-// router.get("/recipes", getAllRecipe);
+router.get("/favorites", protect, getAllFavorites);
 
 // GET REQUEST USING ID ROUTE
-// router.get("/recipe/:id", protect, getRecipe);
-
-// EDIT REQUEST ROUTE
-// router.put("/recipe/:id", protect, updateRecipe);
+router.get("/favorites/:id", protect, getFavoriteById);
 
 //  DELETE REQUEST ROUTE
-// router.delete("/recipe/:id", protect, deleteRecipe);
+router.delete("/favorite/:id", protect, deleteFavoriteById);
 
 
 export default router;
