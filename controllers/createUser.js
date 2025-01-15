@@ -1,6 +1,6 @@
 import User from "../models/User.js";
 import GenerateToken from "../utils/index.js";
-import bcrypt from "bcrypt";
+import bcrypt from 'bcryptjs';
 
 // REGISTER FUNCTION
 export const RegisterUser = async (req, res) => {
